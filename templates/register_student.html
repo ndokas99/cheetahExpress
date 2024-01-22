@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}"/>
+    <script src="{{ url_for('static', filename='js/jquery-3.5.1.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/bootstrap.bundle.min.js') }}"></script>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <style>
+        body{
+            background: url("/static/images/bg.jpg") no-repeat;
+            background-size: cover;
+        }
+    </style>
+</head>
+<body>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages  %}
+                {% if category == 'error' %}
+                    <div class="alert alert-danger alert-dismissable fade show" role="alert">
+                        {{ message }}
+                        <button type="button" class="close" data-dismiss="alert">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                {% else %}
+                    <div class="alert alert-success alert-dismissable fade show" role="alert">
+                        {{ message }}
+                        <button type="button" class="close" data-dismiss="alert">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+    <div class="accommodation-header">
+        <h1 style="color: white">STUDENT REGISTRATION</h1>
+    </div>
+    <div class="register_form">
+        <form action="/create" method="post" class="form">
+            <h2>Enter Details</h2>
+            <input name="name" type="text" placeholder="Enter Name">
+            <input name="sname" type="text" placeholder="Enter Surname">
+            <input name="reg" type="text" placeholder="Enter Reg No">
+            <input name="natId" type="text" placeholder="Enter National Id">
+            <input name="prog" type="text" placeholder="Enter Program">
+            <input name="addr" type="text" placeholder="Enter Address">
+            <input name="email" type="text" placeholder="Enter Email">
+            <input name="city" type="text" placeholder="Enter Town, City">
+            <input name="num" type="text" placeholder="Enter Phone number">
+            <input name="level" type="text" placeholder="Enter Level of study">
+            <input type="submit" value="Register" class="submit">
+            <input type="button" onclick="window.location.href = '/_admin';" value="<< Back" class="back">
+        </form>
+    </div>
+</body>
+</html>

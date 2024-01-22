@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboad</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}"/>
+    <script src="{{ url_for('static', filename='js/jquery-3.5.1.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/bootstrap.bundle.min.js') }}"></script>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <div class="content">
+        <div class="options">
+            <h1>ONLINE  ACCOMMODATION  APPLICATION</h1>
+        </div>
+        <div class="content_status_">
+            <table class="content-table">
+                <thead>
+                    <tr>
+                        <th>Attribute</th>
+                        <th>Details</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Name</td>
+                        <td>{{ student.studentName }}</td>
+                    </tr>
+                    <tr>
+                        <td>Surname</td>
+                        <td>{{ student.studentSurname }}</td>
+                    </tr>
+                    <tr>
+                        <td>Registration Number</td>
+                        <td>{{ student.studentReg }}</td>
+                    </tr>
+                    <tr>
+                        <td>ID Number</td>
+                        <td>{{ student.studentId }}</td>
+                    </tr>
+                    <tr>
+                        <td>Contact No</td>
+                        <td>{{ student.studentNumber }}</td>
+                    </tr>
+                    <tr>
+                        <td>Email</td>
+                        <td>{{ student.studentEmail }}</td>
+                    </tr>
+                    <tr>
+                        <td>Address</td>
+                        <td>{{ student.studentAddress }}</td>
+                    </tr>
+                    <tr>
+                        <td>Year of study</td>
+                        <td>{{ student.studentGrade }}</td>
+                    </tr>
+                    <tr>
+                        <td>Program</td>
+                        <td>{{ student.studentProgram }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="buttons">
+            <a href="/accommodation" class="btn">Accommodation Status</a>
+            <a href="/" class="btn">Logout</a>
+        </div>
+    </div>
+</body>
+</html>

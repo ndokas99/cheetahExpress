@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}"/>
+    <script src="{{ url_for('static', filename='js/jquery-3.5.1.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/bootstrap.bundle.min.js') }}"></script>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <style>
+        #warning{
+            display: none;
+            color: red;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        {% for category, message in messages  %}
+            {% if category == 'error' %}
+                <div class="alert alert-danger alert-dismissable fade show" role="alert">
+                    {{ message }}
+                    <button type="button" class="close" data-dismiss="alert">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            {% else %}
+                <div class="alert alert-success alert-dismissable fade show" role="alert">
+                    {{ message }}
+                    <button type="button" class="close" data-dismiss="alert">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+    {% endwith %}
+    <div class="accommodation-header">
+        <h1>Manage Students</h1>
+    </div>
+    <div class="search">
+        <form action="#" class="form_blacklist">
+            <input id="reg" type="text" placeholder="Search By Reg No">
+            <input onclick="query();" type="submit" value="Search">
+        </form>
+    </div>
+    <h6 id="warning"></h6>
+    <div class="content_blacklist">
+        <table class="content-table">
+            <thead>
+                <tr>
+                    <th>Reg No</th>
+                    <th>Name</th>
+                    <th>Surname</th>
+                    <th>Program</th>
+                    <th>Blacklisted</th>
+                    <th>Select</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td id="id"></td>
+                    <td id="name"></td>
+                    <td id="surname"></td>
+                    <td id="prog"></td>
+                    <td id="blackls"></td>
+                    <td>
+                        <div class="check">
+                            <input disabled type="checkbox" class="check" id="check_inp">
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="buttons-status">
+        <a href="#" class="btn" onclick="blacklist()">Blacklist</a>
+        <a href="/register" class="btn">New Register</a>
+        <a href="/" class="btn">Logout</a>
+    </div>
+    <div class="buttons-status">
+        <a href="#" class="btn" onclick="allocate();">Allocate accommodation</a>
+    </div>
+    <script>
+        function display(data){
+            if(data["result"]===1){
+                $("#warning").hide();
+                $("#name").text(data["name"]);
+                $("#surname").text(data["surname"]);
+                $("#id").text(data["reg"]);
+                $("#prog").text(data["prog"]);
+                $("#blackls").text(data["blackls"]);
+
+                if (data['blackls']==="No"){
+                    $("#check_inp").prop("checked", false).removeAttr("disabled");
+                }
+                else{
+                    $("#check_inp").prop("disabled");
+                }
+            }
+            else{
+                $("#warning").text("Record not found").show();
+            }
+        }
+        function query(){
+            let reg = $('#reg').val();
+            fetch('/query', {
+                    method: "POST",
+                    credentials: "include",
+                    body: JSON.stringify({regno:reg}),
+                    cache: "no-cache",
+                    headers: new Headers({
+                        'content-type': "application/json"
+                    })
+            }).then(response=> response.json())
+            .then(data => display(data));
+        }
+        function processBlacklist(data){
+            if(data["result"]===1) {
+                $("#warning").text("Student blacklisted!").show();
+                $("#id").text("");
+                $("#name").text("");
+                $("#surname").text("");
+                $("#prog").text("");
+                $('#blackls').text("");
+                $("#check_inp").prop("checked", false);
+            }
+            else{
+                $("#warning").text("Error: Record not found!").show();
+            }
+        }
+        function blacklist(){
+            if ($("#check_inp").is(":checked")){
+                let reg = $('#reg').val();
+                fetch('/blacklist', {
+                    method: "POST",
+                    credentials: "include",
+                    body: JSON.stringify({regno:reg}),
+                    cache: "no-cache",
+                    headers: new Headers({
+                        'content-type': "application/json"
+                    })
+            }).then(response=> response.json())
+            .then(data => processBlacklist(data));
+            }
+            else{
+                $("#warning").text("Error: No record selected!").show();
+            }
+        }
+        function finishAlloc(data){
+            if (data)
+                $("#warning").css('color','green').text("Residence allocation complete").show();
+        }
+        function allocate(){
+            fetch('/allocate', {
+                    method: "POST",
+                    credentials: "include",
+                    body: JSON.stringify({}),
+                    cache: "no-cache",
+                    headers: new Headers({
+                        'content-type': "application/json"
+                    })
+            }).then(response=> response.json())
+            .then(data => finishAlloc(data));
+        }
+    </script>
+</body>
+</html>
