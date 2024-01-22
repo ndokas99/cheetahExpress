@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+    <script src="{{ url_for('static', filename='js/jquery-3.5.1.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/bootstrap.bundle.min.js') }}"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+    <title>Track Package</title>
+</head>
+<body>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages  %}
+                {% if category == 'failure' %}
+                    <div class="alert alert-danger alert-dismissable fade show" role="alert">
+                        {{ message }}
+                        <button type="button" class="close" data-dismiss="alert">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+    <div class="container">
+        <div class="parent-div">
+            <div class="child-div">
+                <div>
+                    <img src="{{ url_for('static', filename='images/cheetah-reverse-200h.png') }}" alt="logo">
+                </div>
+            </div>
+            <div class="child-div">
+                <div>
+                    <h2>TRACK PACKAGE</h2>
+                    <form action="/result" method="POST">
+                        <div id="tracking_input">
+                            <input name="trackingNumber" type="text" id="tracking_number" value="" maxlength="20"
+                            data-reqmsg="This field cannot be blank." aria-required="true"
+                            data-invmsg="Text is invalid" aria-invalid="false">
+                        </div>
+                        <div id="tracking_btn">
+                            <button class="track-button js-smooth-scroll mk-button--dimension-flat mk-button--size-medium \
+                             mk-button--corner-pointed text-color-light _ relative text-center font-weight-700 no-backface \
+                             letter-spacing-1 inline" type="submit">Track</button>
+                        </div>
+                    </form>
+                    <div id="tracking_btn">
+                        <button class="track-button js-smooth-scroll mk-button--dimension-flat mk-button--size-medium \
+                         mk-button--corner-pointed text-color-light _ relative text-center font-weight-700 no-backface \
+                         letter-spacing-1 inline" onclick="location.href='/login'">Create Order</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

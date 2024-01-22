@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+    <script src="{{ url_for('static', filename='js/jquery-3.5.1.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/bootstrap.bundle.min.js') }}"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+    <title>Package Status</title>
+</head>
+<body>
+    <div class="container">
+        <div class="parent-div">
+            <div class="child-div">
+                <div>
+                    <img src="{{ url_for('static', filename='images/cheetah-reverse-200h.png') }}" alt="logo">
+                </div>
+            </div>
+            <div class="child-div">
+                <div id="results">
+                    <h2>Details for cargo: {{ trackingNumber }}</h2>
+                    <table class="table property-value-table">
+                        <tbody>
+                            {% for label, data in results.items() %}
+                            <tr class="result-row">
+                                <th>{{ label }}</th>
+                                <td>{{ data }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                    <div id="tracking_btn">
+                        <button class="track-button js-smooth-scroll mk-button--dimension-flat mk-button--size-medium \
+                        mk-button--corner-pointed text-color-light _ relative text-center font-weight-700 no-backface \
+                        letter-spacing-1 inline" onclick="location.href='/'" type="submit">Home</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

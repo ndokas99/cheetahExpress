@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+    <script src="{{ url_for('static', filename='js/jquery-3.5.1.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/bootstrap.bundle.min.js') }}"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+    <title>Package Status</title>
+</head>
+<body>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages  %}
+                {% if category == 'success' %}
+                    <div class="alert alert-success alert-dismissable fade show" role="alert">
+                        {{ message }}
+                        <button type="button" class="close" data-dismiss="alert">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+    <div class="container">
+        <div class="parent-div">
+            <div class="child-div">
+                <div>
+                    <img src="{{ url_for('static', filename='images/cheetah-reverse-200h.png') }}" alt="logo">
+                </div>
+            </div>
+            <div class="child-div">
+                <div class="register_form">
+                    <form action="/createOrder" method="post" class="form">
+                        <h2>Enter Details</h2>
+                        <input name="tno" type="text" placeholder="Tracking Number">
+                        <input name="nos" type="text" placeholder="Name of Sender">
+                        <input name="nor" type="text" placeholder="Name of Receiver">
+                        <input name="wgt" type="text" placeholder="Weight">
+                        <input name="dims" type="text" placeholder="Dimensions">
+                        <input name="coe" type="text" placeholder="Cost of Equipment">
+                        <input name="fcost" type="text" placeholder="Freight Cost">
+                        <input name="duty" type="text" placeholder="Duty">
+                        <input name="vat" type="text" placeholder="VAT">
+                        <input name="ctrl" type="text" placeholder="Control">
+                        <input type="submit" value="Register" class="submit">
+                        <input id="last" type="button" onclick="window.location.href = '/login';" value="Logout" class="back">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

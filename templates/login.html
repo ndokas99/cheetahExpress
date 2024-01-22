@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+    <script src="{{ url_for('static', filename='js/jquery-3.5.1.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/bootstrap.bundle.min.js') }}"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+    <title>Package Status</title>
+</head>
+<body>
+    {% with messages = get_flashed_messages(with_categories=false) %}
+        {% if messages %}
+            {% for message in messages  %}
+                <div class="alert alert-danger alert-dismissable fade show" role="alert">
+                    {{ message }}
+                    <button type="button" class="close" data-dismiss="alert">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+    <div class="container">
+        <div class="parent-div">
+            <div class="child-div">
+                <div>
+                    <img src="{{ url_for('static', filename='images/cheetah-reverse-200h.png') }}" alt="logo">
+                </div>
+            </div>
+            <div class="child-div">
+                <div class="formBx">
+                    <h2>Login</h2>
+                    <form action="/create" method="POST">
+                        <div class="inputBx">
+                            <input type="text" name="username" placeholder="Username" required>
+                        </div>
+                        <div class="inputBx">
+                            <input type="password" name="password" placeholder="Enter password" required>
+                        </div>
+                        <div class="inputBx">
+                            <input type="submit" name="submit" value="Sign in">
+                        </div>
+                        <div class="inputBx">
+                            <input id="last" onclick="location.href='/'" value="Home">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
